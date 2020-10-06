@@ -1,16 +1,10 @@
 package com.github.forntoh.livedata_validation.sample
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.github.forntoh.livedata_validation.constant.PasswordPattern
-import com.github.forntoh.livedata_validation.rule.*
-import com.github.forntoh.livedata_validation.validation.FormValidator
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 
 /**
  * Library Demo
@@ -34,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isValidForm(): Boolean {
-        return FormValidator.getInstance()
+        /*return LiveDataValidator(this)
             .addField(firstNameEt, NonEmptyRule(R.string.error_empty_first_name))
             .addField(lastNameEt, NonEmptyRule(R.string.error_empty_last_name))
             .addField(
@@ -73,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                     Log.e("Error", error.toString())
                 }
             }
-            .validate()
+            .validate()*/
+        return true
     }
 }
