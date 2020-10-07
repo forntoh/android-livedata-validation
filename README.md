@@ -186,7 +186,8 @@ addField(password, R.id.passwordEtLyt, PasswordRule("Please provide strong Passw
 
 ```kotlin
 // Password should be alphanumeric only eg abc123
-addField(password, R.id.passwordEtLyt, PasswordRule(PasswordPattern.ALPHA_NUMERIC, "Please provide strong Password"))
+addField(password, R.id.passwordEtLyt, PasswordRule(PasswordPattern.ALPHA_NUMERIC,
+"Please provide strong Password"))
 ```
 
 ## #️⃣ RegexRule
