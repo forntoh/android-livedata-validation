@@ -5,20 +5,16 @@ package com.github.forntoh.livedata_validation.rule
  *
  * This rule can be used to confirm input text.
  * e.g. Confirm Password, Confirm Email
- *
- * @author Dhaval Patel
- * @version 1.0
- * @since 28 March 2020
  */
 class EqualRule : BaseRule {
 
     private var mText: String? = null
 
-    constructor(text: String, errorRes: Int) : super(errorRes) {
+    constructor(text: String?, errorRes: Int) : super(arrayOf(errorRes)) {
         this.mText = text
     }
 
-    constructor(text: String, error: String) : super(error) {
+    constructor(text: String?, error: String) : super(arrayOf(error)) {
         this.mText = text
     }
 

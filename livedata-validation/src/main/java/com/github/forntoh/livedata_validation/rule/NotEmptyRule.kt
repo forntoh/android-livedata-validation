@@ -1,19 +1,17 @@
 package com.github.forntoh.livedata_validation.rule
 
+import androidx.annotation.StringRes
+
 /**
  * Widely used rule, To check if user has entered input or not.
  *
  * Validate input field to be not empty
- *
- * @author Dhaval Patel
- * @version 1.0
- * @since 28 March 2020
  */
-class NonEmptyRule : BaseRule {
+class NotEmptyRule : BaseRule {
 
-    constructor(errorRes: Int) : super(errorRes)
+    constructor(@StringRes errorRes: Int) : super(arrayOf(errorRes))
 
-    constructor(error: String) : super(error)
+    constructor(error: String) : super(arrayOf(error))
 
     /**
      * Check if text is Empty or not

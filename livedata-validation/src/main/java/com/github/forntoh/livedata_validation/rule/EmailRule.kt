@@ -2,16 +2,12 @@ package com.github.forntoh.livedata_validation.rule
 
 /**
  * Rule to validate Email Address
- *
- * @author Dhaval Patel
- * @version 1.0
- * @since 28 March 2020
  */
 class EmailRule : BaseRule {
 
-    constructor(errorRes: Int) : super(errorRes)
+    constructor(errorRes: Int) : super(arrayOf(errorRes))
 
-    constructor(error: String) : super(error)
+    constructor(error: String) : super(arrayOf(error))
 
     override fun validate(text: String?) = isEmailValid(text)
 
@@ -33,8 +29,6 @@ class EmailRule : BaseRule {
          * @param email String Email TExt
          * @return Boolean return true if email is valid else return false
          */
-        fun isEmailValid(email: String?): Boolean {
-            return RegexRule.validate(EMAIL_PATTERN, email)
-        }
+        fun isEmailValid(email: String?) = RegexRule.validate(EMAIL_PATTERN, email)
     }
 }

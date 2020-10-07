@@ -1,44 +1,28 @@
 package com.github.forntoh.livedata_validation.rule
 
 import android.content.Context
-import androidx.annotation.StringRes
 
-/**
- * Base class for all validation rules
- *
- * @author Dhaval Patel
- * @version 1.0
- * @since 28 March 2020
- */
-abstract class BaseRule private constructor() {
+abstract class BaseRule constructor() {
 
     /**
-     * Error String Resource
+     * Error message, can be either [String] or StringRes
      */
-    @StringRes
-    protected var errorRes: Int = 0
+    private var error: Array<out Any?>? = null
 
-    /**
-     * Error String
-     */
-    protected var error: String? = null
-
-    constructor(@StringRes errorRes: Int) : this() {
-        this.errorRes = errorRes
-    }
-
-    constructor(error: String) : this() {
+    constructor(error: Array<out Any?>?) : this() {
         this.error = error
     }
 
     /**
-     * Get Error error
+     * Get the error message
      */
     open fun getError(context: Context): String {
-        if (errorRes != 0) {
-            return context.getString(errorRes)
-        }
-        return error ?: ""
+        return error?.joinToString(separator = " ") { m ->
+            var text = ""
+            if (m is String) text = m
+            else if (m is Int) text = context.getString(m)
+            text
+        } ?: ""
     }
 
     /**

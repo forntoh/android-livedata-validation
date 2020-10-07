@@ -4,10 +4,6 @@ import java.util.regex.Pattern
 
 /**
  * Validate Input field value based on provided regex
- *
- * @author Dhaval Patel
- * @version 1.0
- * @since 28 March 2020
  */
 class RegexRule : BaseRule {
 
@@ -16,11 +12,11 @@ class RegexRule : BaseRule {
      */
     private var mRegex:String = ""
 
-    constructor(regex: String, errorRes: Int) : super(errorRes) {
+    constructor(regex: String, errorRes: Int) : super(arrayOf(errorRes)) {
         this.mRegex = regex
     }
 
-    constructor(regex: String, error: String) : super(error) {
+    constructor(regex: String, error: String) : super(arrayOf(error)) {
         this.mRegex = regex
     }
 
@@ -38,7 +34,7 @@ class RegexRule : BaseRule {
         // ABC123
         const val ALPHANUMERIC_PATTERN = "^[a-zA-Z0-9]*\$"
 
-        // Dhaval-_2404
+        // Forntoh-_2404
         // Alphanumeric string that may include _ and – having a length of 3 to 16 characters
         const val USERNAME_PATTERN = "^[a-zA-Z0-9_-]{3,16}"
 
@@ -49,11 +45,8 @@ class RegexRule : BaseRule {
          * @param text String text content to match the regex
          * @return Boolean return true if text matched the regex else return false
          */
-        fun validate(regex: String, text: String?): Boolean {
-            if (text.isNullOrBlank()) return false
-
-            return Pattern.compile(regex).matcher(text).matches()
-        }
+        fun validate(regex: String, text: String?) = if (text.isNullOrBlank()) false
+        else Pattern.compile(regex).matcher(text).matches()
 
     }
 

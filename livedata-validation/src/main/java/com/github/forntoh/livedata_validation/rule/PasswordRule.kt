@@ -4,10 +4,6 @@ import com.github.forntoh.livedata_validation.constant.PasswordPattern
 
 /**
  * Validate Password, Provide PasswordPattern as per the requirement
- *
- * @author Dhaval Patel
- * @version 1.0
- * @since 28 March 2020
  */
 class PasswordRule : BaseRule {
 
@@ -16,15 +12,15 @@ class PasswordRule : BaseRule {
      */
     private var mPattern: PasswordPattern = PasswordPattern.ALPHA_NUMERIC_SYMBOLS
 
-    constructor(errorRes: Int) : super(errorRes)
+    constructor(errorRes: Int) : super(arrayOf(errorRes))
 
-    constructor(error: String) : super(error)
+    constructor(error: String) : super(arrayOf(error))
 
-    constructor(pattern: PasswordPattern, errorRes: Int) : super(errorRes) {
+    constructor(pattern: PasswordPattern, errorRes: Int) : super(arrayOf(errorRes)) {
         this.mPattern = pattern
     }
 
-    constructor(pattern: PasswordPattern, error: String) : super(error) {
+    constructor(pattern: PasswordPattern, error: String) : super(arrayOf(error)) {
         this.mPattern = pattern
     }
 
@@ -40,9 +36,8 @@ class PasswordRule : BaseRule {
          *
          * @return Boolean, Return true is password matched the pattern else false
          */
-        private fun isValidPassword(pattern: PasswordPattern, password: String?): Boolean {
-            return RegexRule.validate(pattern.value, password)
-        }
+        private fun isValidPassword(pattern: PasswordPattern, password: String?) =
+            RegexRule.validate(pattern.value, password)
 
     }
 }

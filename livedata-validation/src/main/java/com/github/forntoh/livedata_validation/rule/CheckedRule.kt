@@ -2,16 +2,12 @@ package com.github.forntoh.livedata_validation.rule
 
 /**
  * Used with CheckBox Widget, To check if widget is checked or not
- *
- * @author Dhaval Patel
- * @version 1.0
- * @since 28 March 2020
  */
 class CheckedRule : BaseRule {
 
-    constructor(errorRes: Int) : super(errorRes)
+    constructor(errorRes: Int) : super(arrayOf(errorRes))
 
-    constructor(error: String) : super(error)
+    constructor(error: String) : super(arrayOf(error))
 
     /**
      * Check if input text is true of false
