@@ -51,9 +51,10 @@ class LiveDataValidator constructor(private val context: Context) {
     }
 
     /**
-     * Add UI widget and its Rules
+     * Add LiveData and Rules to widget
      *
-     * @param viewId Android Widget on which validation will be applied
+     * @param data LiveData holding the info to be validated
+     * @param viewId Widget ID on which validation will be applied
      * @param rule Rules to applied on Widget data
      */
     fun <T> addField(
