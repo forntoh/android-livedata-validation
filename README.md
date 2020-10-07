@@ -8,9 +8,15 @@
 [![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19)
 ![Language](https://img.shields.io/badge/language-Kotlin-orange.svg)
 [![PRWelcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/forntoh/android-livedata-validation)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/forntoh/android-livedata-validation.svg?style=social)](https://twitter.com/intent/tweet?text=Checkout%20the%20UI%20livedata%20validation%20library%20for%20Android.%20https%3A%2F%2Fgithub.com%2Fforntoh%2Fandroid-livedata-validation)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/forntoh/android-livedata-validation.svg?style=social)](https://twitter.com/intent/tweet?text=Checkout%20the%20%20Livedata%20validation%20library%20for%20Android.%20https%3A%2F%2Fgithub.com%2Fforntoh%2Fandroid-livedata-validation)
 
-DataBinding LiveData validation library for Android. For use with **TextView** **EditText** **AppCompatEditText** **TextInputEditText** **TextInputLayout** and **CheckBox**
+### **Support/Features**
+
+- Supports **TextView**, **EditText**, **AppCompatEditText**, **TextInputEditText**, **TextInputLayout** and **CheckBox**
+- Combine different types of error messages **(String, StringRes, Number...)**
+- Validation is done in view model using databinding
+
+<br>
 
 # 🔽 Getting started
 
@@ -22,20 +28,9 @@ Gradle:
 implementation 'com.forntoh:android-livedata-validation:1.1.0'
 ```
 
-Maven:
-
-```maven
-<dependency>
-  <groupId>com.forntoh</groupId>
-  <artifactId>android-livedata-validation</artifactId>
-  <version>1.1.0</version>
-  <type>pom</type>
-</dependency>
-```
-
 ## Usage
 
-### **1. Make your ViewModel to extend `ValidatorViewModel**
+### **1. Make your ViewModel to extend `ValidatorViewModel`**
 
 ```kotlin
 class MainViewModel : ValidatorViewModel() {
@@ -60,13 +55,13 @@ LiveDataValidator(requireContext()).observe {
 Add rules to the validator
 
 ```kotlin
-/****
-  ** Add LiveData and Rules to widget
-  *
-  * @param data    LiveData holding the info to be validated
-  * @param viewId  Widget ID on which validation will be applied
-  * @param rule    Rules to applied on Widget data
-  */
+/**
+ * Add LiveData and Rules to widget
+ *
+ * @param data    LiveData holding the info to be validated
+ * @param viewId  Widget ID on which validation will be applied
+ * @param rule    Rules to applied on Widget data
+ */
 fun <T> addField(data: LiveData<T>, @IdRes viewId: Int, vararg rule: BaseRule)
 ```
 
@@ -138,7 +133,8 @@ addField(email, R.id.emailEtLyt, EmailRule("Please enter valid Email"))
 
 ```kotlin
 // confirmPassword,password: MutalbeLiveData<String>
-addField(confirmPassword, R.id.confirmPasswordEtLyt, EqualRule(password, "Password and Confirm password must match"))
+addField(confirmPassword, R.id.confirmPasswordEtLyt,
+         EqualRule(password, "Password and Confirm password must match"))
 ```
 
 ## 🔢 NumberRule
@@ -146,6 +142,32 @@ addField(confirmPassword, R.id.confirmPasswordEtLyt, EqualRule(password, "Passwo
 ```kotlin
 // phoneNumber: MutalbeLiveData<String>
 addField(phoneNumber, R.id.phoneNumberEt, NumberRule("Must be numbers"))
+```
+
+## 🆚 NumberCompareRule
+
+```kotlin
+// amount: MutalbeLiveData<String>
+// balance: MutalbeLiveData<Number> = MutalbeLiveData(0)
+addField(
+    amount, R.id.amountTIL,
+    NumberCompareRule(Is.GREATER_THAN, balance, "Must be above zero")
+)
+```
+
+You can also append multiple error messages
+
+```kotlin
+// amount: MutalbeLiveData<String>
+// balance: MutalbeLiveData<Number>
+//
+// R.string.error_amount_more_than = "is more than amount present in"
+addField(
+    amount, R.id.amountTIL,
+    NumberCompareRule(Is.GREATER_THAN, balance,
+     /*error args*/ amount, R.string.error_amount_more_than, "Balance:", balance)
+)
+// Result: XXX is more than amount present in Balance: YYY
 ```
 
 ## 🚮 NonEmptyRule
@@ -177,11 +199,7 @@ addField(usernameEditText, RegexRule(RegexRule.USERNAME_PATTERN, "Please enter v
 addField(usernameEditText, RegexRule("^[a-zA-Z0-9_-]{3,16}",  "Please enter valid Username"))
 ```
 
-### Let us know!
-
-Please kindly send us links to your projects which make use of this library. Just send an email to **thomasforntoh@gmail.com** And let us know if you have any questions or suggestion regarding the library.
-
-## License
+# License
 
     Copyright 2020, Forntoh Thomas
 
