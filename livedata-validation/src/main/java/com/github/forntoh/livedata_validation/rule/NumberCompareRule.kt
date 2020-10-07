@@ -1,5 +1,6 @@
 package com.github.forntoh.livedata_validation.rule
 
+import androidx.lifecycle.LiveData
 import com.github.forntoh.livedata_validation.constant.Is
 
 /**
@@ -8,11 +9,11 @@ import com.github.forntoh.livedata_validation.constant.Is
 class NumberCompareRule : BaseRule {
 
     private val compare: Is
-    private val number: Number
+    private val number: LiveData<Number>
 
     constructor(
         compare: Is,
-        number: Number,
+        number: LiveData<Number>,
         vararg error: Any?
     ) : super(error) {
         this.compare = compare
@@ -21,11 +22,11 @@ class NumberCompareRule : BaseRule {
 
     constructor(
         compare: Is,
-        number: Number,
+        number: LiveData<Number>,
         error: Any?
     ) : this(compare = compare, number = number, error = arrayOf(error))
 
-    override fun validate(text: String?): Boolean = isGreaterThan(text, number, compare)
+    override fun validate(text: String?): Boolean = isGreaterThan(text, number.value, compare)
 
     companion object {
 
@@ -37,8 +38,8 @@ class NumberCompareRule : BaseRule {
          * @param compare Comparison to make
          * @return Boolean return true if text is equal to provide length else return false
          */
-        fun isGreaterThan(text: String?, number: Number, compare: Is) =
-            if (text.isNullOrBlank()) false else when (compare) {
+        fun isGreaterThan(text: String?, number: Number?, compare: Is) =
+            if (text.isNullOrBlank() || number == null) false else when (compare) {
                 Is.GREATER_THAN -> text.toDouble() > number.toDouble()
                 Is.GREATER_OR_EQUAL_TO -> text.toDouble() >= number.toDouble()
                 Is.LESS_THAN -> text.toDouble() < number.toDouble()
