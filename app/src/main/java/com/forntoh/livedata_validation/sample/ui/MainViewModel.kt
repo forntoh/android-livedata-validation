@@ -22,6 +22,7 @@ class MainViewModel : ValidatorViewModel() {
             .addField(lastName, R.id.lastNameEt, NotEmptyRule("Last name required"))
             .addField(
                 phoneNumber, R.id.phoneNumberEt,
+                NumberRule("Must be numbers"),
                 NotEmptyRule("Please enter Phone Number"),
                 LengthRangeRule.Builder()
                     .minLength(3)
