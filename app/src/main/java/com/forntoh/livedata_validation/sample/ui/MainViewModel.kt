@@ -45,6 +45,11 @@ class MainViewModel : ValidatorViewModel() {
                 NotEmptyRule("Please enter Password"),
                 EqualRule(password, "Password and Confirm password must match")
             )
+            .addField(
+                haveAcceptTerms,
+                R.id.termsOfUseCB,
+                CheckedRule("La la la")
+            )
     }
 
 }
