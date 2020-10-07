@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.forntoh.livedata_validation.sample.ui.MainViewModel" />
+            type="com.forntoh.livedata_validation.sample.main.MainViewModel" />
     </data>
 
     <LinearLayout
@@ -15,8 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        tools:ignore="HardcodedText,Autofill,TextFields"
-        tools:targetApi="lollipop">
+        tools:ignore="HardcodedText,Autofill,TextFields">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 package com.forntoh.livedata_validation.rule
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 
 abstract class BaseRule constructor() {
 
@@ -19,8 +20,11 @@ abstract class BaseRule constructor() {
     open fun getError(context: Context): String {
         return error?.joinToString(separator = " ") { m ->
             var text = ""
-            if (m is String) text = m
-            else if (m is Int) text = context.getString(m)
+            when (m) {
+                is String -> text = m
+                is Int -> text = context.getString(m)
+                is LiveData<*> -> text = m.value.toString()
+            }
             text
         } ?: ""
     }

@@ -3,4 +3,6 @@
     <string name="error_empty_first_name">Please enter valid First Name</string>
     <string name="error_invalid_email">Please enter valid Email</string>
     <string name="error_empty_last_name">Please enter valid Last Name</string>
+    <string name="error_amount_more_than">"is more than amount present in"</string>
+    <string name="required">Required</string>
 </resources>

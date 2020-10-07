@@ -1,4 +1,4 @@
-package com.forntoh.livedata_validation.sample.ui
+package com.forntoh.livedata_validation.sample.main
 
 import androidx.lifecycle.MutableLiveData
 import com.forntoh.livedata_validation.constant.PasswordPattern

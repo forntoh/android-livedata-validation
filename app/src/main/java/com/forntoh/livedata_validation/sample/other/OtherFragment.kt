@@ -1,4 +1,4 @@
-package com.forntoh.livedata_validation.sample.ui
+package com.forntoh.livedata_validation.sample.other
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,20 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.forntoh.livedata_validation.sample.databinding.MainFragmentBinding
+import com.forntoh.livedata_validation.sample.databinding.OtherFragmentBinding
 import com.forntoh.livedata_validation.validation.LiveDataValidator
 
-class MainFragment : Fragment() {
+class OtherFragment : Fragment() {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: OtherViewModel by viewModels()
 
-    private lateinit var binding: MainFragmentBinding
+    private lateinit var binding: OtherFragmentBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = with(MainFragmentBinding.inflate(inflater, container, false)) {
+    ): View? = with(OtherFragmentBinding.inflate(inflater, container, false)) {
         lifecycleOwner = viewLifecycleOwner
         viewmodel = viewModel
         binding = this

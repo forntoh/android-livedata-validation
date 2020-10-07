@@ -6,14 +6,14 @@ import com.forntoh.livedata_validation.constant.Is
 /**
  * Rule to check how input text compares to a number
  */
-class NumberCompareRule : BaseRule {
+class NumberCompareRule<T> : BaseRule {
 
     private val compare: Is
-    private val number: LiveData<Number>
+    private val number: LiveData<T>
 
     constructor(
         compare: Is,
-        number: LiveData<Number>,
+        number: LiveData<T>,
         vararg error: Any?
     ) : super(error) {
         this.compare = compare
@@ -22,11 +22,12 @@ class NumberCompareRule : BaseRule {
 
     constructor(
         compare: Is,
-        number: LiveData<Number>,
+        number: LiveData<T>,
         error: Any?
     ) : this(compare = compare, number = number, error = arrayOf(error))
 
-    override fun validate(text: String?): Boolean = isGreaterThan(text, number.value, compare)
+    override fun validate(text: String?): Boolean =
+        isGreaterThan(text, number.value.toString().toDoubleOrNull(), compare)
 
     companion object {
 
@@ -47,5 +48,11 @@ class NumberCompareRule : BaseRule {
                 Is.EQUAL_TO -> text.toDouble() == number.toDouble()
             }
 
+        /**
+         * Parses the string as a [Double] number and returns the result.
+         * @throws NumberFormatException if the string is not a valid representation of a number.
+         */
+        private fun String.toDouble(): Double =
+            if (this == "-" || this.isBlank()) 0.0 else java.lang.Double.parseDouble(this)
     }
 }
