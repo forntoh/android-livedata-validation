@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.github.forntoh.livedata_validation.sample.ui.MainViewModel" />
+            type="com.forntoh.livedata_validation.sample.ui.MainViewModel" />
     </data>
 
     <LinearLayout
