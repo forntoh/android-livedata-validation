@@ -44,11 +44,6 @@ class LiveDataValidator constructor(private val context: Context) {
     private val _isDataValid: MutableLiveData<Boolean> = MutableLiveData()
     val isDataValid: LiveData<Boolean> = _isDataValid
 
-    fun attachTo(root: View): LiveDataValidator {
-        mRoot = root
-        return this
-    }
-
     fun observe() {
         validate()
         if (mLifecycleOwner == null) mViewModel?.inputError?.observeForever(observer)
@@ -65,10 +60,9 @@ class LiveDataValidator constructor(private val context: Context) {
         data: LiveData<T>,
         @IdRes viewId: Int,
         vararg rule: BaseRule
-    ): LiveDataValidator {
+    ) = apply {
         mValidationFields[viewId] = rule.toList()
         mValidationData[viewId] = data
-        return this
     }
 
     private fun validate() {
@@ -99,12 +93,15 @@ class LiveDataValidator constructor(private val context: Context) {
         val rules = mValidationFields[viewId]
         val errors = ArrayList<InputError>()
 
-        if (rules != null)
-            for (rule in rules)
-                if (!rule.validate(text)) {
-                    errors.add(InputError(viewId, rule.getError(context)))
-                    break
-                }
+        if (rules != null) {
+            var status = true
+            for (rule in rules) if (!rule.validate(text)) {
+                errors.add(InputError(viewId, rule.getError(context)))
+                status = false
+                break
+            }
+            if (status) setError(viewId, null)
+        }
         setErrors(errors)
         return errors
     }
@@ -140,20 +137,33 @@ class LiveDataValidator constructor(private val context: Context) {
         mViewModel?.inputError?.postValue(InputError(view, error))
     }
 
-    fun lifecycleOwner(
-        lifecycleOwner: LifecycleOwner,
-        viewModel: ValidatorViewModel
-    ): LiveDataValidator {
-        mLifecycleOwner = lifecycleOwner
-        mViewModel = viewModel
-        return this
-    }
+    /**
+     * Set the root view
+     *
+     * @param root Root layout
+     */
+    fun attachTo(root: View) = apply { mRoot = root }
 
-    /** Applies multiple properties to the dialog and opens it. */
-    inline fun observe(func: LiveDataValidator.() -> Unit): LiveDataValidator {
+    /**
+     * Add the Fragment's/Activity's lifecycle owner in the validator
+     *
+     * @param lifecycleOwner Fragment/Activity lifecycle owner
+     */
+    fun lifecycleOwner(lifecycleOwner: LifecycleOwner) = apply { mLifecycleOwner = lifecycleOwner }
+
+    /**
+     * Set the ValidatorViewModel
+     *
+     * @param viewModel Concerned ValidatorViewModel
+     */
+    fun viewModel(viewModel: ValidatorViewModel) = apply { mViewModel = viewModel }
+
+    /**
+     * Start observing changes
+     */
+    inline fun observe(func: LiveDataValidator.() -> Unit) = apply {
         this.func()
         this.observe()
-        return this
     }
 
 }

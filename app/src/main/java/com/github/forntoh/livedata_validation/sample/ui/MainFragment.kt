@@ -30,7 +30,8 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         LiveDataValidator(requireContext()).observe {
-            lifecycleOwner(viewLifecycleOwner, viewModel)
+            lifecycleOwner(viewLifecycleOwner)
+            viewModel(viewModel)
             attachTo(binding.root)
         }
     }

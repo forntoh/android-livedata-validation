@@ -31,7 +31,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="First Name" />
+                android:hint="First Name"
+                android:text="@={viewmodel.firstName}" />
 
             <EditText
                 android:id="@+id/lastNameEt"
@@ -39,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:hint="Last Name" />
+                android:hint="Last Name"
+                android:text="@={viewmodel.lastName}" />
 
         </LinearLayout>
 
@@ -50,9 +52,9 @@
             android:layout_marginTop="16dp"
             android:hint="Phone Number"
             android:inputType="phone"
-            android:maxLines="10" />
+            android:maxLines="10"
+            android:text="@={viewmodel.phoneNumber}" />
 
-        <!-- Set app:errorIconDrawable="@null" to Hide Error Icon-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailEtLyt"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -66,7 +68,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email Address"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:text="@={viewmodel.email}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,7 +86,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="@={viewmodel.password}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,7 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Confirm Password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="@={viewmodel.confirmPassword}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,12 +113,14 @@
             android:id="@+id/termsOfUseCB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="@={viewmodel.haveAcceptTerms}"
             android:text="I've read and accept Terms and Condition" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="@{viewmodel.validator.isDataValid}"
             android:padding="16dp"
             android:text="Register"
             app:cornerRadius="32dp" />
