@@ -43,7 +43,7 @@ class MainViewModel : ValidatorViewModel() {
                 confirmPassword,
                 R.id.confirmPasswordEtLyt,
                 NotEmptyRule("Please enter Password"),
-                EqualRule(password.value, "Password and Confirm password must match")
+                EqualRule(password, "Password and Confirm password must match")
             )
     }
 

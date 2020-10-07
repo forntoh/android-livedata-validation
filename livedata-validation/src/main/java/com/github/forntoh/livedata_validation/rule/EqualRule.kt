@@ -1,5 +1,7 @@
 package com.github.forntoh.livedata_validation.rule
 
+import androidx.lifecycle.LiveData
+
 /**
  * Rule to check if Input text is equal to the provided text.
  *
@@ -8,15 +10,15 @@ package com.github.forntoh.livedata_validation.rule
  */
 class EqualRule : BaseRule {
 
-    private var mText: String? = null
+    private val mText: LiveData<String>
 
-    constructor(text: String?, errorRes: Int) : super(arrayOf(errorRes)) {
+    constructor(text: LiveData<String>, errorRes: Int) : super(arrayOf(errorRes)) {
         this.mText = text
     }
 
-    constructor(text: String?, error: String) : super(arrayOf(error)) {
+    constructor(text: LiveData<String>, error: String) : super(arrayOf(error)) {
         this.mText = text
     }
 
-    override fun validate(text: String?) = text == mText
+    override fun validate(text: String?) = text == mText.value
 }
