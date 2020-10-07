@@ -94,13 +94,11 @@ class LiveDataValidator constructor(private val context: Context) {
         val errors = ArrayList<InputError>()
 
         if (rules != null) {
-            var status = true
             for (rule in rules) if (!rule.validate(text)) {
                 errors.add(InputError(viewId, rule.getError(context)))
-                status = false
                 break
             }
-            if (status) setError(viewId, null)
+            if (errors.isEmpty()) setError(viewId, null)
         }
         setErrors(errors)
         return errors
