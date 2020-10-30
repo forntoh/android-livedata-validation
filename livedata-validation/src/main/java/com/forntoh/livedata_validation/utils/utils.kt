@@ -7,7 +7,11 @@ import com.google.android.material.textfield.TextInputLayout
 
 fun View.showError(message: String?) {
     when (this) {
-        is TextInputLayout -> error = message
+        is TextInputLayout -> {
+            if (message != null) isErrorEnabled = true
+            error = message
+            if (message == null) isErrorEnabled = false
+        }
         is EditText -> error = message
         is CheckBox -> error = message
     }
