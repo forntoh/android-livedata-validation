@@ -15,7 +15,7 @@ ext {
     siteUrl = 'https://github.com/forntoh/android-livedata-validation/'
     gitUrl = 'https://github.com/forntoh/android-livedata-validation.git'
 
-    libraryVersion = '1.1.1'
+    libraryVersion = '1.1.2'
     //If you are uploading new library try : gradlew install
     //If you are updating existing library then execute: gradlew bintrayUpload
     //In both the case don't forgot to put bintray credentials in local.properties file.
@@ -31,7 +31,7 @@ ext {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         minSdkVersion 19
