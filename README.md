@@ -25,7 +25,7 @@
 Gradle:
 
 ```gradle
-implementation 'com.forntoh:android-livedata-validation:1.1.0'
+implementation 'com.forntoh:android-livedata-validation:1.2.0'
 ```
 
 ## Usage
@@ -114,6 +114,21 @@ android:enabled="@{viewmodel.validator.isDataValid}"
 ```
 
 # Available Rules📏:
+
+## 🔃 FunctionRule 🌟
+
+```kotlin
+// NEW in 1.2.0: YOU CAN USE THIS FOR EVERYTHING 🤩🤩
+// 
+// valueHolder: MutalbeLiveData<String>
+.addField(
+    valueHolder, R.id.functionTIL,
+    FunctionRule("Function returned false") {
+        val isCorrect = // Do your validation here
+        return@FunctionRule isCorrect
+    }
+)
+```
 
 ## ✔ CheckedRule _(Used with CheckBox only)_
 
