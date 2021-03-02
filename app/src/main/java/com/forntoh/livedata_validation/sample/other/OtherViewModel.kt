@@ -2,6 +2,7 @@ package com.forntoh.livedata_validation.sample.other
 
 import androidx.lifecycle.MutableLiveData
 import com.forntoh.livedata_validation.constant.Is
+import com.forntoh.livedata_validation.rule.FunctionRule
 import com.forntoh.livedata_validation.rule.LengthRangeRule
 import com.forntoh.livedata_validation.rule.NotEmptyRule
 import com.forntoh.livedata_validation.rule.NumberCompareRule
@@ -13,6 +14,7 @@ class OtherViewModel : ValidatorViewModel() {
     val balance = MutableLiveData("")
     val amount = MutableLiveData("")
     val number = MutableLiveData("")
+    val function = MutableLiveData("")
 
     override fun validate() {
         validator
@@ -41,6 +43,12 @@ class OtherViewModel : ValidatorViewModel() {
                     .maxLength(3)
                     .error("Only 3 digit numbers allowed")
                     .build()
+            )
+            .addField(
+                function, R.id.functionTIL,
+                FunctionRule("Function returned false") {
+                    return@FunctionRule it?.length ?: 0 >= 5
+                }
             )
     }
 }
