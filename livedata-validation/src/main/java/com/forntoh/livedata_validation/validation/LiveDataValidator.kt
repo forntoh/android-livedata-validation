@@ -25,6 +25,12 @@ class LiveDataValidator constructor(private val context: Context) {
     private val mValidationData = LinkedHashMap<Int, LiveData<*>>()
 
     /**
+     * Stores info about the first validation
+     * isFistTime for each [View] is set to true when [addField] is invoked
+     */
+    private val isFirstTime = LinkedHashMap<Int, Boolean>()
+
+    /**
      * [InputError] observer
      * In-charge of showing the error on the view
      */
@@ -64,6 +70,7 @@ class LiveDataValidator constructor(private val context: Context) {
     ) = apply {
         mValidationFields[viewId] = rule.toList()
         mValidationData[viewId] = data
+        isFirstTime[viewId] = true
     }
 
     private fun validate() {
@@ -75,6 +82,10 @@ class LiveDataValidator constructor(private val context: Context) {
             val dataObserver: Observer<Any> = Observer { data ->
                 errors[field.key] = applyValidation(field.key, getText(data)).isEmpty()
                 _isDataValid.postValue(!errors.containsValue(false))
+                /*
+                 * After first validation, set [isFirstTime] to false
+                 */
+                isFirstTime[field.key] = false
             }
 
             val data = mValidationData[field.key]
@@ -101,7 +112,11 @@ class LiveDataValidator constructor(private val context: Context) {
             }
             if (errors.isEmpty()) setError(viewId, null)
         }
-        setErrors(errors)
+        /*
+         * Show view error only if [isFirstTime] is false
+         */
+        if (isFirstTime[viewId] == false)
+            setErrors(errors)
         return errors
     }
 
