@@ -1,6 +1,10 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+Properties versionProps = new Properties()
+versionProps.load(new FileInputStream(file('version.properties')))
 
 ext {
     bintrayRepo = 'maven'
@@ -15,7 +19,7 @@ ext {
     siteUrl = 'https://github.com/forntoh/android-livedata-validation/'
     gitUrl = 'https://github.com/forntoh/android-livedata-validation.git'
 
-    libraryVersion = '1.2.0'
+    libraryVersion = versionProps['VERSION_NUMBER']
     //If you are uploading new library try : gradlew install
     //If you are updating existing library then execute: gradlew bintrayUpload
     //In both the case don't forgot to put bintray credentials in local.properties file.
@@ -61,7 +65,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0-alpha01'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
 
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation "junit:junit:$junit_version"
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
