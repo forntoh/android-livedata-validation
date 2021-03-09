@@ -33,6 +33,9 @@ jobs:
           git commit -m "Bumb app version to ${RELEASE_VERSION}"
 
       - name: Setup bintray
+        env:
+          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
+          BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
         run: |
           echo -e "bintray.user=${BINTRAY_USER}\nbintray.apikey=${BINTRAY_API_KEY}" > local.properties
 
