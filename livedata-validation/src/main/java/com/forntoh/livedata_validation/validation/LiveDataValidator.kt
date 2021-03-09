@@ -39,6 +39,8 @@ class LiveDataValidator constructor(private val context: Context) {
         v?.showError(inputError.error)
     }
 
+    private val inputError = MutableLiveData<InputError>()
+
     private val errors = LinkedHashMap<Int, Boolean>()
 
     private var mRoot: View? = null
@@ -52,8 +54,8 @@ class LiveDataValidator constructor(private val context: Context) {
 
     fun observe() {
         validate()
-        if (mLifecycleOwner == null) mViewModel?.inputError?.observeForever(observer)
-        else mViewModel?.inputError?.observe(mLifecycleOwner!!, observer)
+        if (mLifecycleOwner == null) inputError.observeForever(observer)
+        else inputError.observe(mLifecycleOwner!!, observer)
     }
 
     /**
@@ -82,7 +84,7 @@ class LiveDataValidator constructor(private val context: Context) {
             val dataObserver: Observer<Any> = Observer { data ->
                 errors[field.key] = applyValidation(field.key, getText(data)).isEmpty()
                 _isDataValid.postValue(!errors.containsValue(false))
-                /*
+                /**
                  * After first validation, set [isFirstTime] to false
                  */
                 isFirstTime[field.key] = false
@@ -112,7 +114,7 @@ class LiveDataValidator constructor(private val context: Context) {
             }
             if (errors.isEmpty()) setError(viewId, null)
         }
-        /*
+        /**
          * Show view error only if [isFirstTime] is false
          */
         if (isFirstTime[viewId] == false)
@@ -124,7 +126,7 @@ class LiveDataValidator constructor(private val context: Context) {
      * Get text from LiveData value
      *
      * @param data LiveData value
-     * @return String text gotten from LiveData
+     * @return [String] text gotten from LiveData
      */
     private fun <T> getText(data: T?): String? = when (data) {
         is String -> data
@@ -148,7 +150,7 @@ class LiveDataValidator constructor(private val context: Context) {
      * @param error String error to set on UI Widget
      */
     private fun setError(view: Int, error: String?) {
-        mViewModel?.inputError?.postValue(InputError(view, error))
+        inputError.postValue(InputError(view, error))
     }
 
     /**
